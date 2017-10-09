@@ -9,6 +9,7 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
+
 @media (max-width: 768px) {
   html, body {
     font-size: 50%;
@@ -25,6 +26,7 @@ svg {
 .svg-icon {
   cursor: pointer;
 }
+
 .svg-icon path {
   stroke: rgba(255, 255, 255, 0.9);
   fill: none;
@@ -55,33 +57,41 @@ input, button {
   height: 53rem;
   overflow: hidden;
 }
-.title{
+.success{
+  -webkit-transition: opacity 0s 0s, background-color 0.3s 0s, -webkit-transform 0.3s 0.1s ease-out;
+  transition: transform 0.3s 0s ease-out, opacity 0.3s 0s, background-color 0.3s 0s, -webkit-transform 0.3s 0.1s ease-out;
+  opacity: 0;
+}
+.title {
+
   font-size: 10rem;
-  font-weight: 100px;
+  font-weight: 600;
   position: absolute;
   z-index: 10;
   left: 50%;
   transform: translateX(-50%);
   top: 54px;
 }
+
 .login {
   position: relative;
   height: 100%;
-  background: -webkit-linear-gradient(top, #fff , rgba(0, 0, 0, 0.2) );
+  background: -webkit-linear-gradient(top, #fff, rgba(0, 0, 0, 0.2));
   background: linear-gradient(rgba(255, 255, 253, 0), rgba(78, 78, 78, 0.49));
   -webkit-transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25), -webkit-transform 0.3s cubic-bezier(0.17, -0.65, 0.665, 1.25);
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
 
 .login.inactive {
   opacity: 0;
   -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  transform: scale(1.1);
 }
+
 /*.login__check {
   position: absolute;
   top: 16rem;
@@ -113,27 +123,60 @@ input, button {
   padding: 1.5rem 2.5rem;
   text-align: center;
 }
+
 .login__row {
   height: 5rem;
   padding-top: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.login__row_up {
+  animation-timing-function: ease-in-out;
+  -webkit-animation: myfirst 0.8s  forwards ;
+  animation: myfirst 0.8s  forwards;
+}
+
+.login__row_down {
+  animation-timing-function: ease-in-out;
+  -webkit-animation: mysecond 0.8s  forwards ;
+  animation: mysecond 0.8s  forwards ;
+}
+.bounce-enter-active {
+  animation: bounce-in .5s;
+}
+.bounce-leave-active {
+  animation: bounce-in .5s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: translate3D(100%,0,0);
+  }
+  /*50% {*/
+    /*transform: translate3D(50%,0,0);*/
+  /*}*/
+  100% {
+    transform: translate3D(0%,0,0);
+  }
+}
 .login__icon {
   margin-bottom: -0.4rem;
   margin-right: 0.5rem;
 }
+
 .login__icon.name path {
   stroke-dasharray: 73.50196075439453;
   stroke-dashoffset: 73.50196075439453;
   -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+  animation: animatePath 2s 0.5s forwards;
 }
+
 .login__icon.pass path {
   stroke-dasharray: 92.10662841796875;
   stroke-dashoffset: 92.10662841796875;
   -webkit-animation: animatePath 2s 0.5s forwards;
-          animation: animatePath 2s 0.5s forwards;
+  animation: animatePath 2s 0.5s forwards;
 }
+
 .login__input {
   display: inline-block;
   width: 22rem;
@@ -143,11 +186,14 @@ input, button {
   background: transparent;
   color: #FDFCFD;
 }
+
 .login__submit {
-  position: relative;
-  width: 100%;
+  position: absolute;
+  width: 80%;
   height: 4rem;
-  margin: 5rem 0 2.2rem;
+  bottom:60px;
+  left:50%;
+  transform: translate3d(-50%,0,0);
   color: rgba(255, 255, 255, 0.8);
   background: #FF3366;
   font-size: 1.5rem;
@@ -157,6 +203,7 @@ input, button {
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
   transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
 }
+
 .login__submit:after {
   content: "";
   position: absolute;
@@ -174,35 +221,48 @@ input, button {
   transition: opacity 0.1s 0.4s;
   opacity: 0;
 }
+
 .login__submit.processing {
   width: 4rem;
   font-size: 0;
 }
+
 .login__submit.processing:after {
   opacity: 1;
   -webkit-animation: rotate 0.5s 0.4s infinite linear;
-          animation: rotate 0.5s 0.4s infinite linear;
+  animation: rotate 0.5s 0.4s infinite linear;
 }
+
 .login__submit.success {
-  -webkit-transition: opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
-  transition: opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
-  transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s;
-  transition: transform 0.3s 0.1s ease-out, opacity 0.1s 0.3s, background-color 0.1s 0.3s, -webkit-transform 0.3s 0.1s ease-out;
+  background-color:white;
+  -webkit-transition: opacity 0s 0s, background-color 0.3s 0s, -webkit-transform 0.3s 0.1s ease-out;
+  /*transition: opacity 0.7s 0s, background-color 0.8s 0.3s, -webkit-transform 0.3s 0.1s ease-out;*/
+  /*transition: transform 0.3s 0.1s ease-out, opacity 0.7s 0s, background-color 0.8s 0.3s;*/
+  transition: transform 0.3s 0.1s ease-out, opacity 0.7s 0s, background-color 0.3s 0s, -webkit-transform 0.3s 0.1s ease-out;
   -webkit-transform: scale(30);
-          transform: scale(30);
+  transform: scale(30);
   opacity: 0.9;
+
 }
+
 .login__submit.success:after {
   -webkit-transition: opacity 0.1s 0s;
   transition: opacity 0.1s 0s;
   opacity: 0;
   -webkit-animation: none;
-          animation: none;
+  animation: none;
 }
+
 .login__signup {
+  position: absolute;
+  bottom:30px;
+  left:50%;
+  z-index: 0;
+  transform: translate3D(-50%,0,0);
   font-size: 1.2rem;
   color: #fff;
 }
+
 .login__signup a {
   color: #FC3768;
   cursor: pointer;
@@ -221,26 +281,31 @@ input, button {
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.68, -0.45, 0.465, 1.25);
   transition: opacity 0.1s, transform 0.3s cubic-bezier(0.68, -0.45, 0.465, 1.25), -webkit-transform 0.3s cubic-bezier(0.68, -0.45, 0.465, 1.25);
   -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+  transform: scale(1.2);
 }
+
 .app.active {
   opacity: 1;
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
+
 .app.active .app__user-photo {
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
+
 .app.active .app__meeting {
   -webkit-transform: translateY(0);
-          transform: translateY(0);
+  transform: translateY(0);
   opacity: 1;
 }
+
 .app.active .app__logout {
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
 }
+
 .app__top {
   position: relative;
   height: 28rem;
@@ -248,11 +313,13 @@ input, button {
   padding: 6rem 1.5rem 2rem;
   text-align: center;
 }
+
 .app__bot {
   position: relative;
   height: 25rem;
   background: #fff;
 }
+
 .app__menu-btn {
   position: absolute;
   top: 2rem;
@@ -261,6 +328,7 @@ input, button {
   height: 1.7rem;
   cursor: pointer;
 }
+
 .app__menu-btn span, .app__menu-btn:before, .app__menu-btn:after {
   position: absolute;
   left: 0;
@@ -268,34 +336,41 @@ input, button {
   height: 1px;
   background: rgba(255, 255, 255, 0.6);
 }
+
 .app__menu-btn span {
   top: 0.8rem;
 }
+
 .app__menu-btn:before {
   content: "";
   top: 0;
 }
+
 .app__menu-btn:after {
   content: "";
   bottom: 0;
 }
+
 .app__icon {
   position: absolute;
   top: 2rem;
 }
+
 .app__icon.search {
   right: 1.5rem;
   stroke-dasharray: 61.847137451171875;
   stroke-dashoffset: 61.847137451171875;
   -webkit-animation: animatePath 0.5s 0.5s forwards;
-          animation: animatePath 0.5s 0.5s forwards;
+  animation: animatePath 0.5s 0.5s forwards;
 }
+
 .app__hello {
   font-size: 2.2rem;
   color: #fff;
   font-weight: normal;
   margin-bottom: 3rem;
 }
+
 .app__user {
   position: relative;
   display: inline-block;
@@ -303,6 +378,7 @@ input, button {
   height: 9rem;
   margin-bottom: 3rem;
 }
+
 .app__user-photo {
   width: 100%;
   height: 100%;
@@ -312,8 +388,9 @@ input, button {
   transition: transform 0.3s 0.2s cubic-bezier(0.62, 0.35, 0.56, 1.55);
   transition: transform 0.3s 0.2s cubic-bezier(0.62, 0.35, 0.56, 1.55), -webkit-transform 0.3s 0.2s cubic-bezier(0.62, 0.35, 0.56, 1.55);
   -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
 }
+
 .app__user-notif {
   position: absolute;
   top: 0;
@@ -327,17 +404,20 @@ input, button {
   color: #fff;
   font-size: 1.5rem;
 }
+
 .app__month:after {
   content: "";
   display: table;
   clear: both;
 }
+
 .app__month-name {
   display: inline-block;
   color: rgba(255, 255, 255, 0.6);
   font-size: 1.2rem;
   text-transform: uppercase;
 }
+
 .app__month-btn {
   display: inline-block;
   width: 1.2rem;
@@ -347,16 +427,19 @@ input, button {
   border-bottom: none;
   cursor: pointer;
 }
+
 .app__month-btn.left {
   float: left;
   -webkit-transform: rotate(-135deg);
-          transform: rotate(-135deg);
+  transform: rotate(-135deg);
 }
+
 .app__month-btn.right {
   float: right;
   -webkit-transform: rotate(45deg);
-          transform: rotate(45deg);
+  transform: rotate(45deg);
 }
+
 .app__days {
   height: 7rem;
   padding: 1.5rem 2rem;
@@ -364,25 +447,29 @@ input, button {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
+
 .app__day {
   width: 14%;
   text-align: center;
   font-size: 1.2rem;
 }
+
 .app__day.weekday {
   color: #919197;
   text-transform: uppercase;
 }
+
 .app__day.date {
   font-size: 1.2rem;
   font-weight: bold;
   color: #3C3C43;
 }
+
 .app__meeting {
   position: relative;
   height: 6rem;
@@ -393,29 +480,35 @@ input, button {
   transition: transform 0.3s, opacity 0.3s;
   transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
   -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  transform: translateY(-50%);
   opacity: 0;
 }
+
 .app__meeting:nth-child(1) {
   -webkit-transition-delay: 0.2s;
-          transition-delay: 0.2s;
+  transition-delay: 0.2s;
 }
+
 .app__meeting:nth-child(2) {
   -webkit-transition-delay: 0.3s;
-          transition-delay: 0.3s;
+  transition-delay: 0.3s;
 }
+
 .app__meeting:nth-child(3) {
   -webkit-transition-delay: 0.4s;
-          transition-delay: 0.4s;
+  transition-delay: 0.4s;
 }
+
 .app__meeting:nth-child(4) {
   -webkit-transition-delay: 0.5s;
-          transition-delay: 0.5s;
+  transition-delay: 0.5s;
 }
+
 .app__meeting:nth-child(5) {
   -webkit-transition-delay: 0.6s;
-          transition-delay: 0.6s;
+  transition-delay: 0.6s;
 }
+
 .app__meeting-photo {
   position: absolute;
   left: 2rem;
@@ -423,14 +516,17 @@ input, button {
   width: 4rem;
   height: 4rem;
 }
+
 .app__meeting-name {
   color: #000;
   font-size: 1.3rem;
 }
+
 .app__meeting-info {
   color: #949498;
   font-size: 1.1rem;
 }
+
 .app__logout {
   position: absolute;
   bottom: 3.3rem;
@@ -449,18 +545,21 @@ input, button {
   transition: bottom 0.4s 0.1s, right 0.4s 0.1s, transform 0.4s 0.4s, opacity 0.1s 0.7s, background-color 0.1s 0.7s;
   transition: bottom 0.4s 0.1s, right 0.4s 0.1s, transform 0.4s 0.4s, opacity 0.1s 0.7s, background-color 0.1s 0.7s, -webkit-transform 0.4s 0.4s;
   -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
 }
+
 .app__logout.clicked {
   bottom: 50%;
   right: 50%;
   -webkit-transform: scale(30) !important;
-          transform: scale(30) !important;
+  transform: scale(30) !important;
   opacity: 0.9;
 }
+
 .app__logout.clicked svg {
   opacity: 0;
 }
+
 .app__logout-icon {
   position: absolute;
   width: 3rem;
@@ -472,12 +571,13 @@ input, button {
   -webkit-transition: opacity 0.1s;
   transition: opacity 0.1s;
 }
+
 .app__logout-icon path {
   stroke-width: 4px;
   stroke-dasharray: 64.36235046386719;
   stroke-dashoffset: 64.36235046386719;
   -webkit-animation: animatePath 0.5s 0.5s forwards;
-          animation: animatePath 0.5s 0.5s forwards;
+  animation: animatePath 0.5s 0.5s forwards;
 }
 
 .ripple {
@@ -488,16 +588,16 @@ input, button {
   margin-top: -7.5rem;
   background: rgba(0, 0, 0, 0.4);
   -webkit-transform: scale(0);
-          transform: scale(0);
+  transform: scale(0);
   -webkit-animation: animRipple 0.4s;
-          animation: animRipple 0.4s;
+  animation: animRipple 0.4s;
   border-radius: 50%;
 }
 
 @-webkit-keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
+    transform: scale(3.5);
     opacity: 0;
   }
 }
@@ -505,29 +605,67 @@ input, button {
 @keyframes animRipple {
   to {
     -webkit-transform: scale(3.5);
-            transform: scale(3.5);
+    transform: scale(3.5);
     opacity: 0;
   }
 }
+
 @-webkit-keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
+
 @keyframes rotate {
   to {
     -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
+
 @-webkit-keyframes animatePath {
   to {
     stroke-dashoffset: 0;
   }
 }
+
 @keyframes animatePath {
   to {
     stroke-dashoffset: 0;
   }
 }
+
+/**/
+@keyframes myfirst {
+  to {
+    -webkit-transform: translate3d(0, -80px, 0);
+    transform: translate3d(0, -80px, 0);
+  }
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+  to {
+    -webkit-transform: translate3d(0, -80px, 0);
+    transform: translate3d(0, -80px, 0);
+  }
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+  to {
+    -webkit-transform: translate3d(0, -80px, 0);
+    transform: translate3d(0, -80px, 0);
+  }
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+  to {
+    -webkit-transform: translate3d(0, -80px, 0);
+    transform: translate3d(0, -80px, 0);
+  }
+}
+
+
