@@ -42,7 +42,7 @@
             console.log("外面拿到值",e)
           },
           pickAction(){
-
+          //周一下午写到选择动作
           }
 
         },
