@@ -7,7 +7,7 @@ import iView from 'iview';
 import 'iview/dist/styles/iview.css';    // 使用 CSS
 Vue.use(iView);
 
-
+import 'font-awesome/css/font-awesome.css'
 // import  'babel-polyfill'
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'

@@ -1,12 +1,12 @@
 <template>
   <div>
     <ul ref="container">
-      <li class="xiong" :class="{gray:isGray0}" @click="click(0)">胸</li>
-      <li class="bei" :class="{gray:isGray1}" @click="click(1)">背</li>
-      <li class="tun" :class="{gray:isGray2}" @click="click(2)">臀腿</li>
-      <li class="fu" :class="{gray:isGray3}" @click="click(3)">腰腹</li>
-      <li class="ertou" :class="{gray:isGray4}" @click="click(4)">肩臂</li>
-      <li class="paobu" :class="{gray:isGray5}" @click="click(5)">有氧</li>
+      <li class="xiong" :class="{gray:isGray0,jump:!isGray0}" @click="click(0)"><span :class="{liuguang:!isGray0}">胸</span></li>
+      <li class="bei" :class="{gray:isGray1,jump:!isGray1}" @click="click(1)"> <span :class="{liuguang:!isGray1}">背</span></li>
+      <li class="tun" :class="{gray:isGray2,jump:!isGray2}" @click="click(2)"><span :class="{liuguang:!isGray2}">臀腿</span></li>
+      <li class="fu" :class="{gray:isGray3,jump:!isGray3}" @click="click(3)"><span :class="{liuguang:!isGray3}">腰腹</span></li>
+      <li class="ertou" :class="{gray:isGray4,jump:!isGray4}" @click="click(4)"><span :class="{liuguang:!isGray4}">肩臂</span></li>
+      <li class="paobu" :class="{gray:isGray5,jump:!isGray5}" @click="click(5)"><span :class="{liuguang:!isGray5}">有氧</span></li>
     </ul>
   </div>
 </template>
@@ -88,7 +88,7 @@
       }
     },
     props: {
-      param: {}
+
     },
     computed: {},
     watch: {},
@@ -135,12 +135,84 @@
     font-weight: 500;
     font-size: 17px;
   }
+  .liuguang{
+    text-align: center;
+    background-image: -webkit-linear-gradient(left, white, deepskyblue );
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    animation: stream 0.5s  linear;
+    background-size: 200% 100%;
+  }
   .gray{
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
     -moz-filter: grayscale(100%);
     -ms-filter: grayscale(100%);
     -o-filter: grayscale(100%);
+  }
+  .jump{
+    border: 1px deepskyblue solid;
+    box-shadow:0px 0px 8px deepskyblue;
+    animation: jumpAnimation 0.5s ease-out;
+    -moz-animation:jumpAnimation 0.5s ease-out; /* Firefox */
+    -webkit-animation:jumpAnimation 0.5s ease-out; /* Safari and Chrome */
+    color:deepskyblue;
+  }
+
+
+  @keyframes stream {
+    0%  {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -120% 0;
+    }
+  }
+  @-webkit-keyframes stream {
+    0%  {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -120% 0;
+    }
+  }
+
+  /*弹跳动画*/
+  @keyframes jumpAnimation {
+    0% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(0px, -10px);
+    }
+
+    100% {
+      transform: translate(0px, 0px);
+    }
+  }
+  @-moz-keyframes  jumpAnimation{
+    0% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(0px, -10px);
+    }
+
+    100% {
+      transform: translate(0px, 0px);
+    }
+  }
+  @-webkit-keyframes jumpAnimation {
+    0% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(0px, -10px);
+    }
+
+    100% {
+      transform: translate(0px, 0px);
+    }
   }
   .xiong{
     background: url('../assets/xiong.jpeg') no-repeat center;

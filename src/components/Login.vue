@@ -85,7 +85,8 @@
               }, 400)
             } else {
               that.procing = false;
-              alert("登入失败")
+//              alert
+              this.$Message.error("登入失败")
             }
             console.log("登入:", res)
           })
@@ -95,17 +96,21 @@
               if (res.code == 200) {
                 setTimeout(() => {
                   console.log("that.procing=",this.procing)
-                  alert(res.msg)
+//                  alert()
+                  this.$Message.success(res.msg);
                   this.procing = false
                 }, 500)
               } else {
                 that.procing = false;
-                alert("注册失败")
+//                alert()
+                this.$Message.error("注册失败");
+
               }
               console.log("登入:", res)
             })
           }else{
-            alert("两次输入密码不一致")
+//            alert()
+            this.$Message.error("两次输入密码不一致");
           }
         }
 
