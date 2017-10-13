@@ -5,7 +5,7 @@
           <p class="name">用户名</p>
           <p v-text="+getname()"></p>
         </li>
-        <li class="cell">动作管理</li>
+        <li class="cell" @click="actionManage">动作管理</li>
         <li class="cell">关于XNote</li>
         <li class="cell" @click="logOut">退出登入</li>
       </ul>
@@ -23,6 +23,9 @@
             }
         },
         methods: {
+          actionManage(){
+            this.$router.push({ path: '/actionmanage' })
+          },
           logOut(){
             setUserId(null)
             this.$router.push({ path: '/login' })

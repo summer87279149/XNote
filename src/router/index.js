@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Hello from '@/components/Hello'
-import Home from'@/components/Home'
+import ActionManage from'@/components/ActionManage'
 import Login from'@/components/Login'
 import Label from '@/components/AddLabel'
 import HomePage from '@/components/HomePage'
@@ -33,6 +33,11 @@ export default new Router({
       path:'/label',
       name:'Label',
       component:Label
+    },{
+      path:'/actionmanage',
+      name:'actionmanage',
+      component:ActionManage
+
     }
   ]
 })
