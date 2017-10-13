@@ -59,4 +59,35 @@ export function addtrains(param) {
     });
   })
 }
+//获取训练类型,参数uid
+export function getTrainKinds(user_id) {
+  const url = url1+"/trains/gettrainkinds"
+  return  new Promise((resolve,reject) =>{
+    axios.get(url,{
+      params:{
+        user_id:user_id
+      }
+    })
+      .then((res)=>resolve(res.data)).catch((err)=>{
+      reject(err);
+    });
+  })
+}
 
+
+
+//根据训练类型获得训练日期和id，参数：user_id，train_kind
+export function getTrainDateAndID(user_id,train_kind) {
+  const url = url1+"/trains/gettraindate"
+  return  new Promise((resolve,reject) =>{
+    axios.get(url,{
+      params:{
+        user_id:user_id,
+        train_kind:train_kind
+      }
+    })
+      .then((res)=>resolve(res.data)).catch((err)=>{
+      reject(err);
+    });
+  })
+}

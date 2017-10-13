@@ -1,6 +1,7 @@
 <template>
   <div class="top">
-    <p class="title">主练部位</p>
+    <navigation></navigation>
+    <p class="title" style="font-size: 15px;margin-top:10px;text-align: left;margin-left: 15px; margin-bottom: 20px;">主练部位</p>
     <MainBodyPart @clickCallback="mainBodyPartClick"></MainBodyPart>
     <!--<Table stripe :columns="columns1" :data="data1"></Table>-->
     <ul>
@@ -57,6 +58,7 @@
 </template>
 
 <script>
+  import navigation from '../base/Navigation.vue'
   import MainBodyPart from './MainBodyPart.vue'
   import {gettrains, addtrains} from '../httprequest/api'
   import {setUserId, getUserId} from '../httprequest/userdefault'
@@ -65,6 +67,7 @@
   export default {
     components: {
       MainBodyPart,
+      navigation
     },
     data() {
       return {
@@ -272,6 +275,7 @@
   }
 
   .title {
+    margin-top:10px;
     text-align: left;
     margin-left: 15px;
     margin-bottom: 20px;

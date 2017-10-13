@@ -1,20 +1,26 @@
 <template>
+  <transition name="slide">
     <div class="container">
+      <navigation></navigation>
       <p class="hint" >动作标签：</p>
       <p class="hint" style="font-size: 12px;margin-bottom: 20px;">您训练常用的动作，例如(深蹲、卧推、硬拉、有氧等)</p>
       <input type="text" class="inputtext" placeholder="请输入您的动作标签" v-model="value">
       <button @click="addClicked"  class="addbtn"></button>
       <labels :titles="titles"></labels>
-
     </div>
+  </transition>
 </template>
 
 <script>
+  import navigation from '../base/Navigation.vue'
   import labels from '../base/labels.vue'
   import {addTrainsName,gettrains} from '../httprequest/api'
   import {setUserId, getUserId} from '../httprequest/userdefault'
     export default {
-        components: {labels},
+        components: {
+          labels,
+          navigation
+        },
         data() {
             return {
               value:'',
@@ -68,8 +74,15 @@
 </script>
 
 <style type="text/less" lang="less" scoped>
+  .slide-enter-active, .slide-leave-active {
+    transition: all 0.5s
+  }
+  .slide-enter, .slide-leave-to {
+    transform: translate3d(100%, 0, 0)
+  }
   .container{
     .hint{
+      margin-top:10px;
       text-align: start;
       margin-left: 10px;
       font-size: 15px;
