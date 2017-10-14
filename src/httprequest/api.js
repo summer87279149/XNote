@@ -49,6 +49,21 @@ export function addTrainsName(user_id,train_name) {
     });
   })
 }
+//删除训练项目
+export function removeTrainsName(user_id,train_name) {
+  const url = url1+"/trains/removetrains"
+  return  new Promise((resolve,reject) =>{
+    axios.get(url,{
+      params:{
+        train_name:train_name,
+        user_id:user_id
+      }
+    })
+      .then((res)=>resolve(res.data)).catch((err)=>{
+      reject(err);
+    });
+  })
+}
 //添加训练记录
 export function addtrains(param) {
   const url = url1+"/trains/add"

@@ -19,10 +19,14 @@ import VueLazyload from 'vue-lazyload'
 Vue.config.productionTip = false
 fastclick.attach(document.body)
 
+import AlloyFinger from 'alloyfinger';
+import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue.js'
+
+Vue.use(AlloyFingerVue, { AlloyFinger:  AlloyFinger });
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })

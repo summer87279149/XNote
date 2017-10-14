@@ -1,6 +1,7 @@
 <template>
+  <transition name="slide">
   <div class="top">
-    <navigation></navigation>
+    <navigation :title="title"></navigation>
     <p class="title" style="font-size: 15px;margin-top:10px;text-align: left;margin-left: 15px; margin-bottom: 20px;">主练部位</p>
     <MainBodyPart @clickCallback="mainBodyPartClick"></MainBodyPart>
     <!--<Table stripe :columns="columns1" :data="data1"></Table>-->
@@ -40,7 +41,7 @@
         </Dropdown>
         <!--</div>-->
         <div class="right">
-          <InputNumber :max="10000" :min="0" v-model="pickCounts"></InputNumber>
+          <InputNumber :max="10000" :min="1" v-model="pickCounts"></InputNumber>
           &nbsp;
           <i class="fa fa-check fa-2x" aria-hidden="true" @click="submit"></i>
         </div>
@@ -55,6 +56,7 @@
     <Button type="info" :disabled="uploadActions.length==0" class="addOne" @click="finallySave">保 存</Button>
 
   </div>
+  </transition>
 </template>
 
 <script>
@@ -71,6 +73,7 @@
     },
     data() {
       return {
+        title:'添加训练记录',
         isLoading: false,//是否正在网络请求中
         isCancing: false,//标志位，判断是否正在删除过程的动画中，如果是，则不能同时删除其他cell
         curretBodyPart: -1,
@@ -97,7 +100,7 @@
         this.isLoading = true
         //这里写最终上传的API
         addtrains(params).then((res) => {
-          console.log("最终上传结果是:", res)
+//          console.log("最终上传结果是:", res)
           this.isLoading = false
           if (res.code == 200) {
             this.$Message.success(res.msg);
@@ -123,7 +126,7 @@
         }
       },
       itemPick(e) {
-        console.log("itemPick", e)
+//        console.log("itemPick", e)
       }
       ,
       cancel1(e, index) {
@@ -132,18 +135,18 @@
         } else {
           this.isCancing = true
         }
-        console.log("当前删除的index", index)
+//        console.log("当前删除的index", index)
         let dom1 = 'a' + index
 //        let dom2 = 'b'+e
 //        console.log("dom1=",dom1,"; dom2=",dom2)
-        console.log("当前dom", this.$refs[dom1])
+//        console.log("当前dom", this.$refs[dom1])
 //        console.log("this.$refs.dom2",this.$refs[dom2])
         addClass(this.$refs[dom1][0], 'hide')
 //        addClass(this.$refs.dom2,'hide')
         setTimeout(() => {
-          console.log("删除前:", this.uploadActions)
+//          console.log("删除前:", this.uploadActions)
           this.removeByValue(this.uploadActions, e)
-          console.log("删除后:", this.uploadActions)
+//          console.log("删除后:", this.uploadActions)
           this.isCancing = false
         }, 500)
       }
@@ -161,7 +164,7 @@
         })
 //        this.removeByValue(this.actionsArr, this.pickActionId)
 
-        console.log("this.uploadActions", this.uploadActions)
+//        console.log("this.uploadActions", this.uploadActions)
       }
       ,
       pickCallback(e) {
@@ -169,15 +172,15 @@
         for (let obj of this.actionsArr) {
           if (obj.train_name === e) {
             this.pickActionId = obj.train_name_id
-            console.log("当前pickActionId是", obj.train_name_id)
+//            console.log("当前pickActionId是", obj.train_name_id)
           }
         }
-        console.log("外面拿到值", e)
+//        console.log("外面拿到值", e)
       }
       ,
       mainBodyPartClick(e) {
         this.curretBodyPart = e
-        console.log("this.curretBodyPart=", e)
+//        console.log("this.curretBodyPart=", e)
       }
       ,
       pickAction() {
@@ -200,9 +203,9 @@
     }
     ,
     mounted() {
-      console.log("user_id是", getUserId())
+//      console.log("user_id是", getUserId())
       gettrains(getUserId()).then((res) => {
-        console.log("res是", res)
+//        console.log("res是", res)
         this.actionsArr = res;
       })
     }
@@ -210,6 +213,14 @@
 </script>
 
 <style type="text/less" scoped>
+  .slide-enter-active{
+    transition: all 0.3s;
+  }
+
+  .slide-enter {
+    transform: translate3d(100%, 0, 0);
+  }
+
   /*.slide-fade-enter-active {*/
   /*transition: all .3s ease;*/
   /*}*/

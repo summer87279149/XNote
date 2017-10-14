@@ -24,14 +24,14 @@
         },
         methods: {
           actionManage(){
-            this.$router.push({ path: '/actionmanage' })
+            this.$router.push({ path: '/home/label' })
           },
           logOut(){
             setUserId(null)
             this.$router.push({ path: '/login' })
           },
           getname(){
-            console.log('getUserId=',getUserId())
+//            console.log('getUserId=',getUserId())
             return getUserId()
           },
           dismiss(){

@@ -1,9 +1,10 @@
 <template>
 
-    <div class="container">
+    <div class="container2">
       <button v-show="showSetting" @click.prevent.stop="setting" class="settingbtn"></button>
       <button v-show="showbackbtn" @click.prevent.stop="back" class="backbtn"></button>
       <h2 class="title">{{title}}</h2>
+      <button v-show="showaddbtn" @click.prevent.stop="adda" class="addbtn"></button>
     </div>
 
 </template>
@@ -22,6 +23,9 @@
       },
       back() {
         this.$router.go(-1)
+      },
+      adda(){
+        this.$emit('adda')
       }
     },
     props: {
@@ -36,6 +40,10 @@
       showSetting:{
         type:Boolean,
         default:false
+      },
+      showaddbtn:{
+        type:Boolean,
+        default:false
       }
     },
     computed: {},
@@ -48,7 +56,9 @@
 <style type="text/less" lang="less" scoped>
 
 
-  .container {
+  .container2 {
+    position: relative;
+    /*z-index: 500;*/
     height: 44px;
     width: 100%;
     background-color: #1296db;
@@ -72,6 +82,19 @@
       float: left;
       margin-left: 5px;
       margin-top: 7px;
+      /*z-index: 300;*/
+    }
+    .addbtn{
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: url("../assets/whiteadd.png");
+      background-size: 100%;
+      position: absolute;
+      /*float: right;*/
+      right: 5px;
+      /*z-index: 101;*/
+      top: 7px;
     }
     .title{
       line-height: 44px;

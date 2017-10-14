@@ -7,6 +7,8 @@ import Label from '@/components/AddLabel'
 import HomePage from '@/components/HomePage'
 import LeftView from '@/components/LeftView'
 import DrawerView from '@/components/DrawerView'
+import AddLabel from '@/components/AddLabel'
+import DetailRecord from '@/components/DetailRecord'
 Vue.use(Router)
 
 export default new Router({
@@ -21,8 +23,16 @@ export default new Router({
       component:HomePage,
       children: [
         {
-          path: ':id',
+          path: 'setting',
           component: DrawerView
+        },
+        {
+          path: 'label',
+          component: AddLabel
+        },{
+          name:'detail',
+          path:'detail/:partid',
+          component: DetailRecord
         }
       ]
     },{

@@ -30,6 +30,7 @@
     "vuex": "^2.3.1"
   },
   "devDependencies": {
+    "alloyfinger": "^0.1.10",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.1",

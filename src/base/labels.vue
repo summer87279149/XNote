@@ -2,12 +2,14 @@
   <div class="container">
     <div class="wrapline"></div>
     <ul>
-      <li :key="index" v-for="(item,index) in titles" :style="getRandomColor(index) ">{{item}}</li>
+      <li :key="index" v-for="(item,index) in titles" :style="getRandomColor(index)" v-finger:long-tap="longtouch.bind(this,index)" ref="touchArea"   >{{item}}</li>
     </ul>
+    <p >长按标签删除动作</p>
   </div>
 </template>
 
 <script>
+
   export default {
     components: {},
     data() {
@@ -18,6 +20,9 @@
       }
     },
     methods: {
+      longtouch(item){
+        this.$emit("remove",item)
+      },
       getRandomColor(e) {
         let a = e%5;
         return {color:this.colors[a]}
@@ -54,8 +59,10 @@
       justify-content: flex-start;
       align-items:center;
       li{
+
         border-radius:20px ;
         height: 25px;
+
         line-height: 25px;
         border: lightgray 1px solid;
         margin-left: 20px;

@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <Navigation :title="title" :showbackbtn="false" :showSetting="true" @showSetting="pushSetting"></Navigation>
-    <keep-alive>
+    <!--<keep-alive>-->
       <router-view></router-view>
-    </keep-alive>
+    <!--</keep-alive>-->
+    <Navigation :title="title" :showbackbtn="false" :showaddbtn="true" :showSetting="true" @showSetting="pushSetting" @adda="addAction"></Navigation>
     <scroll @scroll="scroll"
             :listen-scroll="listenScroll"
             :probe-type="probeType"
@@ -11,17 +11,25 @@
             class="listview"
             ref="listview">
       <ul class="tableview">
+
         <li class="cell" v-for="(item,index) in train_kinds_arr">
           <div class="header">
             <p class="title">{{item.name}}</p>
-            <div class="detailbtn">查看详情 ></div>
+            <div class="detailbtn" @click="pushToDetail(item)">查看详情 ></div>
           </div>
           <div class="contentview">
-            <IEcharts v-if="canshow" :option="getOptions(index)" :loading="loading" @ready="onReady" @click="onClick"></IEcharts>
+            <IEcharts v-if="canshow" :option="getOptions(index)" :loading="chartsLoading" @ready="onReady" @click="onClick"></IEcharts>
           </div>
         </li>
       </ul>
+
     </scroll>
+
+    <Spin v-show="loading" fix>
+    <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+    <div>Loading</div>
+  </Spin>
+
   </div>
 </template>
 
@@ -30,7 +38,7 @@
   import Scroll from '../base/scroll.vue'
   import Navigation from '../base/Navigation.vue'
   import {getTrainKinds, getTrainDateAndID} from '../httprequest/api'
-  import {setUserId, getUserId} from '../httprequest/userdefault'
+  import {setUserId, getUserId,storageLocalAllDataThisYear,getStorageLocalAllDataThisYear} from '../httprequest/userdefault'
 
   export default {
     components: {
@@ -42,14 +50,14 @@
       return {
         counts:0,//记录网络请求的成功数量,因为这里</IEcharts>组件的option是异步获取的，而且</IEcharts>在v-for循环内部，所以要用一个标志位，等待数据全部加载完毕，再加载</IEcharts>组件
         canshow:false,
-        color: ['#E0022B', '#E09107', '#A3E00B'],
+        color: ['#E0022B', '#E09107', '#A3E00B','#c23531', '#61a0a8', '#d48265', '#91c7ae',  '#ca8622', '#546570', '#c4ccd3'],
         title: "主页",
         train_kinds_arr: [],//
         /*
         * train_kinds_arr = [{
         *         name:"背部训练",
         *         train_days:[["2017-10-12", 1],["2017-10-13", 1]],
-        *         rain_kind:1
+        *         train_kind:1
         *      },
         *     {
         *       },
@@ -58,28 +66,48 @@
         * */
         probeType: 3,
         listenScroll: true,
-        loading: false,
-
+        loading: true,
+        chartsLoading:true,
       }
     },
     methods: {
+      pushToDetail(item){
+        if(item){
+          this.$router.push({ name: 'detail', params: { partid:item.train_kind }})
+        }
+      },
+      addAction(){
+        this.$router.push({ path: '/actionmanage' })
+      },
       getOptions(index){
-        console.log("当前index",index)
-        console.log("this.train_kinds_arr[index].name",this.train_kinds_arr[index].name)
-        console.log("this.color[this.random()",this.color[this.random()])
-        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
-        console.log("this.train_kinds_arr[index].train_days",this.train_kinds_arr[index].train_days)
-        console.log("\n,\n")
-       var bar = {
+        let dateList = this.getAllDataThisYear()
+        let lunarData = [];
+        for (let i = 0; i < dateList.length; i++) {
+          lunarData.push([
+            dateList[i],
+            1
+          ]);
+        }
+//        console.log("当前index",index)
+//        console.log("this.train_kinds_arr[index].name",this.train_kinds_arr[index].name)
+//        console.log("this.color[this.random()",this.color[this.random()])
+//        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
+//        console.log("this.train_kinds_arr[index].train_days",this.train_kinds_arr[index].train_days)
+//        console.log("\n,\n")
+       let bar = {
           title: {
-            text: this.train_kinds_arr[index].name+'日历图'
+            text: "本月"+this.train_kinds_arr[index].name+'记录图',
+            textStyle:{
+              fontSize: 15,
+            }
           },
           tooltip: {},
           visualMap: {
             type: "piecewise",
               show: true,
               pieces: [
-              {value: 1, label: '训练日', color: this.color[this.random()]},
+                {gt: 2,label: '休息日',color: "white"},
+                {value: 1, label: '训练日', color: this.color[this.random()]},
             ],
           },
           calendar: {
@@ -97,13 +125,63 @@
             width: "65%",
               height: "120px"
           },
-          series: {
+          series: [{
+            type: 'scatter',//
+            coordinateSystem: 'calendar',
+            symbolSize: 1,
+            label: {
+              normal: {
+                show: true,
+                formatter: function (params) {
+//                  console.log("params是",params)
+                  let d = new Date(params.value[0]);
+                  return d.getDate() ;
+                },
+                textStyle: {
+                  color: '#000'
+                }
+              }
+            },
+            data: lunarData
+          },{
             type: 'heatmap',
               coordinateSystem: 'calendar',
-              data: this.train_kinds_arr[index].train_days
-          }
+              data: this.train_kinds_arr[index].train_days,
+              tooltip:{
+                formatter: function (params) {
+//                  console.log("tooltip字符=",params)
+//                  let d = new Date(params.value[0]);
+                  return params.value[0] ;
+                },
+              }
+          }]
         }
         return bar
+      },
+      //获取本年度所有日期:["2017-01-01","2017-01-02","2017-01-03"....]
+      getAllDataThisYear(){
+        function getDate(datestr){
+          let temp = datestr.split("-");
+          let mydate = new Date(temp[0],temp[1],temp[2]);
+          return mydate;
+        }
+        let dateinstance = new Date()
+        let start = dateinstance.getFullYear() + "-" + "00-01"
+        let end = (dateinstance.getFullYear()+1) + "-" + "00-01"
+        let startTime = getDate(start);
+        let endTime = getDate(end);
+        let results = []
+        while((endTime.getTime()-startTime.getTime())>=0){
+          let year = startTime.getFullYear();
+          let month = startTime.getMonth().toString().length==1?"0"+startTime.getMonth().toString():startTime.getMonth();
+          let day = startTime.getDate().toString().length==1?"0"+startTime.getDate():startTime.getDate();
+//          console.log("循环天数:",year+"-"+(parseInt(month)+1)+"-"+day)
+          let dataStr = year+"-"+(parseInt(month)+1)+"-"+day
+          results.push(dataStr)
+          startTime.setDate(startTime.getDate()+1);
+        }
+
+        return results;
       },
       FormatDate(strTime) {
         let date = new Date(strTime);
@@ -115,21 +193,18 @@
         myDate.getMonth(); //获取当前月份(0-11,0代表1月)
         return myDate.getFullYear() + "-" + (myDate.getMonth() + 1)
       },
-      random() {//随机取1～3的整数
-        return Math.floor(Math.random() * 3)
+      random() {//随机取整数
+        return Math.floor(Math.random() * 10)
       },
       onReady(instance) {
-        console.log(instance);
+        this.chartsLoading = false
       },
       onClick(event, instance, echarts) {
-        console.log(arguments);
       },
       scroll(pos) {
-        this.scrollY = pos.y
-//        console.log("当前滚动位置是:", pos.y)
       },
       pushSetting() {
-        console.log('显示setting页面')
+//        console.log('显示setting页面')
         this.$router.push('/home/setting')
       }
     },
@@ -147,11 +222,13 @@
     },
 
     mounted() {
+
+      this.getAllDataThisYear()
       getTrainKinds(getUserId()).then(res => {
         if (res.code == 200) {
           let arr = []
           let dataCounts  =  res.data.length
-          console.log("dataCounts=",dataCounts)
+//          console.log("dataCounts=",dataCounts)
           for (let obj of res.data) {
             getTrainDateAndID(getUserId(), obj.train_kind).then(res => {
               let timeArr = []
@@ -160,17 +237,15 @@
                 a = [this.FormatDate(obj2.cteate_time),1]
                 timeArr.push(a)
               }
-              console.log("最终包装的日期:",timeArr)
-
+//              console.log("最终包装的日期:",timeArr)
               obj.train_days = timeArr
               this.counts++
-              console.log("this.counts=",this.counts)
+//              console.log("this.counts=",this.counts)
               if (this.counts == dataCounts){
-                console.log("相等了",dataCounts,this.counts)
+//                console.log("相等了",dataCounts,this.counts)
                 this.canshow = true
               }
             })
-
             switch (obj.train_kind) {
               case 0:
                 obj.name = "胸部训练"
@@ -198,19 +273,32 @@
 
           }
           this.train_kinds_arr = arr
-          console.log("arr是",arr)
-
+//          console.log("arr是",arr)
+          this.loading = false
         } else {
         }
       }).catch((err) => {
         this.$Message.error("网络不正常");
-//            this.isLoading = false
+        this.loading = false
       });
     }
   }
 </script>
 
 <style lang="less" scoped>
+  .demo-spin-icon-load{
+    animation: ani-demo-spin 1s linear infinite;
+  }
+  @keyframes ani-demo-spin {
+    from { transform: rotate(0deg);}
+    50%  { transform: rotate(180deg);}
+    to   { transform: rotate(360deg);}
+  }
+  .demo-spin-col{
+    height: 100px;
+    position: relative;
+    border: 1px solid #eee;
+  }
   .container {
     .listview {
       position: absolute;
@@ -223,6 +311,7 @@
     .tableview {
       list-style: none;
       .cell {
+        background-color: rgba(245, 245, 246, 1);
         .header {
           height: 20px;
           /*background-color: red;*/
