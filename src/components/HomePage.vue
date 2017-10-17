@@ -1,12 +1,12 @@
 <template>
   <div class="container">
-    <!--<keep-alive>-->
-    <router-view></router-view>
-    <!--</keep-alive>-->
-    <Navigation :title="title" :showbackbtn="false" :showaddbtn="true" :showSetting="true" @showSetting="pushSetting"
-                @adda="addAction">
-    </Navigation>
-    <scroll @scroll="scroll"
+
+    <keep-alive>
+      <Navigation :title="title" :showbackbtn="false" :showaddbtn="true" :showSetting="true" @showSetting="pushSetting"
+                  @adda="addAction">
+      </Navigation>
+    </keep-alive>
+    <scroll
             :listen-scroll="listenScroll"
             :probe-type="probeType"
             :data="train_kinds_arr"
@@ -16,7 +16,7 @@
         <li class="cell" v-for="(item,index) in train_kinds_arr">
           <div class="header">
             <p class="title">{{item.name}}</p>
-            <div class="detailbtn" @click="pushToDetail(item)">查看详情 >
+            <div class="detailbtn" @click.prevent="pushToDetail(item)">查看详情 >
             </div>
           </div>
           <div class="contentview">
@@ -27,9 +27,10 @@
       </ul>
     </scroll>
     <Spin v-show="loading" fix>
-      <Icon type="load-c" size=18  class="demo-spin-icon-load"></Icon>
+      <Icon type="load-c" size=18      class="demo-spin-icon-load"></Icon>
       <div>Loading</div>
     </Spin>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -44,7 +45,7 @@
     storageLocalAllDataThisYear,
     getStorageLocalAllDataThisYear
   } from '../httprequest/userdefault'
-
+  import {mapGetters, mapActions} from 'vuex'
   export default {
     components: {
       Navigation,
@@ -76,15 +77,20 @@
       }
     },
     methods: {
+      pulldowna() {
+        this.$forceUpdate();
+      },
       pushToDetail(item) {
         if (item) {
-          this.$router.push({name: 'detail', params: {partid: item.train_kind}})
+//          this.$router.push({name: 'detail', params: {partid: item.train_kind}})
+          this.$router.push({path: '/home/detail/' + item.train_kind})
         }
       },
       addAction() {
         this.$router.push({path: '/actionmanage'})
       },
       getOptions(index) {
+//        console.log("this.train_kinds_arr[index].train_days", this.train_kinds_arr[index].train_days)
         let dateList = this.getAllDataThisYear()
         let lunarData = [];
         for (let i = 0; i < dateList.length; i++) {
@@ -112,7 +118,7 @@
             show: true,
             pieces: [
               {gt: 2, label: '休息日', color: "white"},
-              {value: 1, label: '训练日', color: this.color[this.random()]},
+              {value: 1, label: '训练日', color: "lightskyblue"},
             ],
           },
           calendar: {
@@ -138,7 +144,6 @@
               normal: {
                 show: true,
                 formatter: function (params) {
-//                  console.log("params是",params)
                   let d = new Date(params.value[0]);
                   return d.getDate();
                 },
@@ -165,29 +170,46 @@
       },
       //获取本年度所有日期:["2017-01-01","2017-01-02","2017-01-03"....]
       getAllDataThisYear() {
-        function getDate(datestr) {
-          let temp = datestr.split("-");
-          let mydate = new Date(temp[0], temp[1], temp[2]);
-          return mydate;
-        }
+        var y;
+        let data = this.getAllYearsData
+//        console.log("data,",y)
+//        console.log("data=",data)
+//        alert(y)
+        if (data.length>0) {
+          console.log("走快捷方法")
+          return data
+        } else {
+//           y = this.getThisYear()
+          function getDate(datestr) {
+            let temp = datestr.split("-");
+            let mydate = new Date(temp[0], temp[1], temp[2]);
+            return mydate;
+          }
 
-        let dateinstance = new Date()
-        let start = dateinstance.getFullYear() + "-" + "00-01"
-        let end = (dateinstance.getFullYear() + 1) + "-" + "00-01"
-        let startTime = getDate(start);
-        let endTime = getDate(end);
-        let results = []
-        while ((endTime.getTime() - startTime.getTime()) >= 0) {
-          let year = startTime.getFullYear();
-          let month = startTime.getMonth().toString().length == 1 ? "0" + startTime.getMonth().toString() : startTime.getMonth();
-          let day = startTime.getDate().toString().length == 1 ? "0" + startTime.getDate() : startTime.getDate();
+          let dateinstance = new Date()
+          let start = dateinstance.getFullYear() + "-" + "00-01"
+          let end = (dateinstance.getFullYear() + 1) + "-" + "00-01"
+          let startTime = getDate(start);
+          let endTime = getDate(end);
+          let results = []
+          while ((endTime.getTime() - startTime.getTime()) >= 0) {
+            let year = startTime.getFullYear();
+            let month = startTime.getMonth().toString().length == 1 ? "0" + startTime.getMonth().toString() : startTime.getMonth();
+            let day = startTime.getDate().toString().length == 1 ? "0" + startTime.getDate() : startTime.getDate();
 //          console.log("循环天数:",year+"-"+(parseInt(month)+1)+"-"+day)
-          let dataStr = year + "-" + (parseInt(month) + 1) + "-" + day
-          results.push(dataStr)
-          startTime.setDate(startTime.getDate() + 1);
+            let dataStr = year + "-" + (parseInt(month) + 1) + "-" + day
+            results.push(dataStr)
+            startTime.setDate(startTime.getDate() + 1);
+          }
+//          console.log("results=",results)
+          this.setAllYearsData({data:results})
+//          console.log("this.allYearsData",this.getAllYearsData)
+          return results;
         }
-
-        return results;
+      },
+      getThisYear() {
+        let dateinstance = new Date()
+        return dateinstance.getFullYear()
       },
       FormatDate(strTime) {
         let date = new Date(strTime);
@@ -207,17 +229,22 @@
       },
       onClick(event, instance, echarts) {
       },
-      scroll(pos) {
-      },
+
       pushSetting() {
-//        console.log('显示setting页面')
         this.$router.push('/home/setting')
-      }
+      },
+      ...mapActions([
+        'setAllYearsData',
+      ])
     },
     props: {
       param: {}
     },
-    computed: {},
+    computed: {
+      ...mapGetters([
+        'getAllYearsData'
+      ])
+    },
     watch: {},
     created() {
       this.probeType = 3
@@ -225,26 +252,22 @@
     },
 
     mounted() {
-      this.getAllDataThisYear()
       getTrainKinds(getUserId()).then(res => {
         if (res.code == 200) {
           let arr = []
           let dataCounts = res.data.length
-//          console.log("dataCounts=",dataCounts)
           for (let obj of res.data) {
             getTrainDateAndID(getUserId(), obj.train_kind).then(res => {
+//              console.log("res++",res)
               let timeArr = []
               let a;
               for (let obj2 of res.data) {
                 a = [this.FormatDate(obj2.cteate_time), 1]
                 timeArr.push(a)
               }
-//              console.log("最终包装的日期:",timeArr)
               obj.train_days = timeArr
               this.counts++
-//              console.log("this.counts=",this.counts)
               if (this.counts == dataCounts) {
-//                console.log("相等了",dataCounts,this.counts)
                 this.canshow = true
               }
             })
@@ -275,7 +298,6 @@
 
           }
           this.train_kinds_arr = arr
-//          console.log("arr是",arr)
           this.loading = false
         } else {
         }

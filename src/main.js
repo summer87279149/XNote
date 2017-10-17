@@ -11,7 +11,7 @@ import 'font-awesome/css/font-awesome.css'
 // import  'babel-polyfill'
 import fastclick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
-// import store from './store'
+import store from './store'
 
 // Vue.use(VueLazyload, {
 //   loading: require('./common/image/default.png')
@@ -27,6 +27,6 @@ Vue.use(AlloyFingerVue, { AlloyFinger:  AlloyFinger });
 new Vue({
   el: '#app',
   router,
-  template: '<App/>',
-  components: {App}
+  store,
+  render: h => h(App)
 })

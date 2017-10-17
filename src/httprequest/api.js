@@ -106,3 +106,32 @@ export function getTrainDateAndID(user_id,train_kind) {
     });
   })
 }
+////背部训练所有动作的柱形图数据对比，参数：user_id，train_kind
+export function getTrainContrast(user_id,train_kind) {
+  const url = url1+"/trains/getcontrast"
+  return  new Promise((resolve,reject) =>{
+    axios.get(url,{
+      params:{
+        user_id:user_id,
+        train_kind:train_kind
+      }
+    })
+      .then((res)=>resolve(res.data)).catch((err)=>{
+      reject(err);
+    });
+  })
+}
+//
+export function getTrainNameByID(train_name_id) {
+  const url = url1+"/trains/gettrainnamebyid"
+  return  new Promise((resolve,reject) =>{
+    axios.get(url,{
+      params:{
+        train_name_id:train_name_id
+      }
+    })
+      .then((res)=>resolve(res.data)).catch((err)=>{
+      reject(err);
+    });
+  })
+}

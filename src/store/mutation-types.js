@@ -1,0 +1,1 @@
+export const SET_ALL_YEARS_DATA = 'SET_ALL_YEARS_DATA'
