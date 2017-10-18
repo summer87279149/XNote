@@ -54,10 +54,11 @@
         }, {
           value: '1',
           label: '动作统计'
-        }, {
-          value: '2',
-          label: '往期记录对比'
         }
+//        , {
+//          value: '2',
+//          label: '往期记录对比'
+//        }
         ],
         value1: ["0"],
         title: '详情',
@@ -285,32 +286,63 @@
           }
           result.push({"train_name_id": trainid, "counts": count})
         }
-//        for (let obj of result){
-//          getTrainNameByID(obj.train_name_id).then(res => {
-//            console.log("id是", res.data)
-//            obj.train_name = res.data[0].train_name
-//          })
-//        }
+        let c = 0;
+        for (let i = 0; i < result.length; i++) {
+          let obj = result[i];
+          getTrainNameByID(obj.train_name_id).then(res => {
+            console.log("id是", res)
+              obj.train_name = res.data[0].train_name
+              c++
+              if (c === result.length){
+                console.log("结果是:",result)
+                let option = {
+                  title: {
+                    text: '动作对比',
+                    top:0,
+                    left:'center'
+                  },
+                  tooltip: {},
+                  dataZoom: [
+                    {
+                      type: 'slider',
+                      show: true,
+                      yAxisIndex: [0],
+                      left:0
+                    }
+                  ],
+                  xAxis: {
+                    position: 'top',
+                    name:"总次(个)数",
+                  },
+                  width: "50%",
+                  position:'right',
+                  left:'20%',
+//                  right:'0',
 
-        console.log("result.map(item=>item.counts)", result)
-        let option = {
-          title: {
-            text: '动作对比'
-          },
-          tooltip: {},
-          xAxis: {
-            position: 'top'
-          },
-          width: "80%",
-          yAxis: {
-            data: result.map(item => item.train_name_id)
-          },
-          series: [{
-            type: 'bar',
-            data: result.map(item => item.counts)
-          }]
-        };
-        this.options2 = option;
+                  yAxis: {
+                    data: result.map(item => item.train_name),
+                    name:"动作名",
+                    nameLocation:'start'
+                  },
+                  series: [{
+                    type: 'bar',
+                    data: result.map(item => item.counts),
+                    barWidth:50
+                  }]
+                };
+                this.options2 = option;
+              }
+
+
+
+
+
+          })
+
+        }
+
+
+
 //        console.log("最后结果是:", result)
       }).catch(res => {
         this.$Message.error("网络错误")
@@ -328,11 +360,13 @@
     height: 1200px;
     right: 0;
     background: white;
+    overflow: hidden;
     .chart1 {
       height: 1200px;
     }
     .chart2 {
       height: 1000px;
+      /*margin-left:;*/
     }
     /*.listview {*/
     /*height: 100%;*/

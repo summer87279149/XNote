@@ -24,6 +24,15 @@
                       @click="onClick"></IEcharts>
           </div>
         </li>
+        <li class="cell" v-show="train_kinds_arr.length>1">
+          <div class="header">
+            <p class="title">部位间对比</p>
+          </div>
+          开发中。。。。
+          <div class="contentview">
+            <IEcharts v-if="bottomCanshow" :option="getOptions(index)" :loading="chartsLoading"></IEcharts>
+          </div>
+        </li>
       </ul>
     </scroll>
     <Spin v-show="loading" fix>
@@ -74,6 +83,8 @@
         listenScroll: true,
         loading: true,
         chartsLoading: true,
+        bottomCellCanshow:false,
+        bottomCellOptions:{}
       }
     },
     methods: {
