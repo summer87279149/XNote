@@ -3,7 +3,7 @@
     <div class="container2">
       <button v-show="showSetting" @click.prevent.stop="setting" class="settingbtn"></button>
       <button v-show="showbackbtn" @click.prevent.stop="back" class="backbtn"></button>
-      <h2 class="title">{{title}}</h2>
+      <h2 class="title33">{{title}}</h2>
       <button v-show="showaddbtn" @click.prevent.stop="adda" class="addbtn"></button>
     </div>
 
@@ -96,7 +96,7 @@
       /*z-index: 101;*/
       top: 7px;
     }
-    .title{
+    .title33{
       line-height: 44px;
       text-align: center;
       color: white;

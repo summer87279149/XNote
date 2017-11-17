@@ -15,7 +15,7 @@
       <ul class="tableview">
         <li class="cell" v-for="(item,index) in train_kinds_arr">
           <div class="header">
-            <p class="title">{{item.name}}</p>
+            <p class="title22">{{item.name}}</p>
             <div class="detailbtn" @click.prevent="pushToDetail(item)">查看详情 >
             </div>
           </div>
@@ -26,7 +26,7 @@
         </li>
         <li class="cell" v-show="train_kinds_arr.length>1">
           <div class="header">
-            <p class="title">部位间对比</p>
+            <p class="title22">部位间对比</p>
           </div>
           开发中。。。。
           <div class="contentview">
@@ -361,7 +361,7 @@
           /*background-color: red;*/
           line-height: 20px;
           background-color: lightgray;
-          .title {
+          .title22 {
             float: left;
             margin-left: 10px;
           }

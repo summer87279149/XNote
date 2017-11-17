@@ -42,7 +42,7 @@
 <script>
   import 'jquery'
   import {regist, login} from '../httprequest/api'
-  import {setUserId} from '../httprequest/userdefault'
+  import {setUserId,getUserId} from '../httprequest/userdefault'
 
   export default {
     components: {},
@@ -143,14 +143,10 @@
 
       }
     },
-    beforeCreate() {
-    },
-    created() {
-    },
-    beforeMount() {
-    },
     mounted() {
-
+      if(getUserId().length!==0){
+        this.$router.push('/home')
+      }
     },
     beforeUpdate() {
     },
