@@ -12,3 +12,9 @@ export function storageLocalAllDataThisYear(year,data) {
 export function getStorageLocalAllDataThisYear(year) {
   return storage.get('set_all_data_this_year'+year)
 }
+export function isFirstLogin() {
+  return storage.get('set_first_login1')
+}
+export function setNotFirstLogin() {
+  return storage.set('set_first_login1',true);
+}

@@ -34,6 +34,15 @@
           </div>
         </li>
       </ul>
+      <div class="noData" v-show="firstLogin" @click="setThisIsNotFirstLogin()">
+        <img src="../assets/2.png" alt="">
+        <img src="../assets/3.png" alt="">
+        <div>
+          <p>欢迎来到Note</p>
+          <p>您还没有添加动作,请根据提示操作</p>
+        </div>
+
+      </div>
     </scroll>
     <Spin v-show="loading" fix>
       <Icon type="load-c" size=18      class="demo-spin-icon-load"></Icon>
@@ -52,7 +61,9 @@
     setUserId,
     getUserId,
     storageLocalAllDataThisYear,
-    getStorageLocalAllDataThisYear
+    getStorageLocalAllDataThisYear,
+    setNotFirstLogin,
+    isFirstLogin
   } from '../httprequest/userdefault'
   import {mapGetters, mapActions} from 'vuex'
   export default {
@@ -63,6 +74,7 @@
     },
     data() {
       return {
+        firstLogin:false,
         counts: 0,//记录网络请求的成功数量,因为这里</IEcharts>组件的option是异步获取的，而且</IEcharts>在v-for循环内部，所以要用一个标志位，等待数据全部加载完毕，再加载</IEcharts>组件
         canshow: false,
         color: ['#E0022B', '#E09107', '#A3E00B', '#c23531', '#61a0a8', '#d48265', '#91c7ae', '#ca8622', '#546570', '#c4ccd3'],
@@ -88,6 +100,11 @@
       }
     },
     methods: {
+      setThisIsNotFirstLogin(){
+//        alert(1)
+        setNotFirstLogin()
+        this.firstLogin = false;
+      },
       pulldowna() {
         this.$forceUpdate();
       },
@@ -263,6 +280,14 @@
     },
 
     mounted() {
+//      alert(isFirstLogin())
+      if(!isFirstLogin()){//如果得到的值是undefined就证明是第一次登入,如果是true就证明不是第一次登入
+//        alert("第一次登入")
+        this.firstLogin = true
+      }else{
+//        alert("不是第一次登入")
+        this.firstLogin = false
+      }
       getTrainKinds(getUserId()).then(res => {
         if (res.code == 200) {
           let arr = []
@@ -375,6 +400,35 @@
           height: 200px;
           margin: 0 auto;
         }
+      }
+    }
+    .noData{
+      position: fixed;
+      top:0;
+      left: 0;
+      right:0;
+      bottom:0;
+      background-color: rgba(180, 180, 180, 0.5);
+
+      img:nth-of-type(1){
+        width: 150px;
+        height: 75px;
+        position: absolute;
+        left:30px;
+        top:5px;
+      }
+      img:nth-of-type(2){
+        width: 150px;
+        height: 75px;
+        position: absolute;
+        right:0px;
+        top:50px;
+      }
+      div{
+        position:absolute;
+        top:40%;
+        left: 50%;
+        transform:translate(-50%,-50%)
       }
     }
   }
