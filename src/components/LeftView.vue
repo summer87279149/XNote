@@ -1,7 +1,7 @@
 <template>
     <div class="container">
       <ul class="tableview">
-        <li class="cell1" >
+        <li class="cell1"  v-show=false>
           <p class="name">用户名</p>
           <p v-text="+getname()"></p>
         </li>
