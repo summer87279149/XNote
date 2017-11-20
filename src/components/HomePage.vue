@@ -24,21 +24,22 @@
                       @click="onClick"></IEcharts>
           </div>
         </li>
-        <li class="cell" v-show="train_kinds_arr.length>1">
-          <div class="header">
-            <p class="title22">部位间对比</p>
-          </div>
-          开发中。。。。
-          <div class="contentview">
-            <IEcharts v-if="bottomCanshow" :option="getOptions(index)" :loading="chartsLoading"></IEcharts>
-          </div>
-        </li>
+        <!--<li class="cell" v-show="train_kinds_arr.length>1">-->
+          <!--<div class="header">-->
+            <!--<p class="title22">部位间对比</p>-->
+          <!--</div>-->
+          <!--开发中。。。。-->
+          <!--<div class="contentview">-->
+            <!--<IEcharts v-if="bottomCanshow" :option="getOptions(index)" :loading="chartsLoading"></IEcharts>-->
+          <!--</div>-->
+        <!--</li>-->
       </ul>
       <div class="noData" v-show="firstLogin" @click="setThisIsNotFirstLogin()">
         <img src="../assets/2.png" alt="">
         <img src="../assets/3.png" alt="">
         <div>
-          <p>欢迎来到Note</p>
+          <p>欢迎来到XNote</p>
+          <p>你可以使用XNote记录每天的健身动作,组数,次数,并在多次记录后进行分析对比或者根据需求进行锻炼计划的调整.</p>
           <p>您还没有添加动作,请根据提示操作</p>
         </div>
 
