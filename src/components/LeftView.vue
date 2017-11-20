@@ -9,7 +9,7 @@
         <li class="cell">关于XNote</li>
         <li class="cell" @click="logOut">退出登入</li>
       </ul>
-      <router-link class="transprant" tag="div" to="/home"></router-link>
+      <div @click="clickTransprant()" v-show="transprant" class="transprant" ></div>
     </div>
 </template>
 
@@ -19,7 +19,7 @@
         components: {},
         data() {
             return {
-                msg: '我是模版消息'
+              transprant:false
             }
         },
         methods: {
@@ -36,6 +36,14 @@
           },
           dismiss(){
             this.$router.push({ path: '/home' })
+          },
+          clickTransprant(){
+//            alert(2)/
+            this.transprant = false
+            setTimeout(()=>{
+              this.$router.push({ path: '/home' })
+            },200)
+//
           }
         },
         props: {
@@ -47,20 +55,12 @@
         watch: {},
         beforeCreate() {
         },
-        created() {
-        },
-        beforeMount() {
-        },
-        mounted() {
-        },
-        beforeUpdate() {
-        },
-        updated() {
-        },
-        beforeDestroy() {
-        },
-        destroyed() {
+        mounted(){
+          setTimeout(()=>{
+            this.transprant = true
+          },350)
         }
+
     }
 </script>
 
@@ -100,9 +100,9 @@
     z-index: 100;
     top: 20px;
     left: 30%;
-    bottom: 0;
-    right: 0;
-    background: rgba(43, 42, 42, 0.08);;
+    bottom: -100px;
+    right:-100px;
+    background: rgba(48,48,48,0.04);
   }
 }
 </style>

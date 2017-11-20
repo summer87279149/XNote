@@ -2,7 +2,7 @@
   <transition name="slide">
   <div class="top">
     <navigation :title="title"></navigation>
-    <p class="title" style="font-size: 15px;margin-top:10px;text-align: left;margin-left: 15px; margin-bottom: 20px;">主练部位</p>
+    <p class="title" style="font-size: 15px;margin-top:10px;text-align: left;margin-left: 15px; margin-bottom: 20px;display: block;height: 20px;">主练部位</p>
     <MainBodyPart @clickCallback="mainBodyPartClick"></MainBodyPart>
     <!--<Table stripe :columns="columns1" :data="data1"></Table>-->
     <ul>
