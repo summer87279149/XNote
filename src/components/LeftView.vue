@@ -6,23 +6,30 @@
           <p v-text="+getname()"></p>
         </li>
         <li class="cell" @click="actionManage">动作管理</li>
-        <li class="cell">关于XNote</li>
+        <li class="cell" @click="feedBack">反馈问题</li>
         <li class="cell" @click="logOut">退出登入</li>
       </ul>
       <div @click="clickTransprant()" v-show="transprant" class="transprant" ></div>
+      <Feedback ref="feed"></Feedback>
     </div>
 </template>
 
 <script>
+  import Feedback  from './feedback.vue'
   import {setUserId, getUserId} from '../httprequest/userdefault'
     export default {
-        components: {},
+        components: {
+          Feedback
+        },
         data() {
             return {
               transprant:false
             }
         },
         methods: {
+          feedBack(){
+            this.$refs.feed.show()
+          },
           actionManage(){
             this.$router.push({ path: '/home/label' })
           },
