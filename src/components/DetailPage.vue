@@ -181,8 +181,8 @@
             let year = startTime.getFullYear();
             let month = startTime.getMonth().toString().length == 1 ? "0" + startTime.getMonth().toString() : startTime.getMonth();
             let day = startTime.getDate().toString().length == 1 ? "0" + startTime.getDate() : startTime.getDate();
-//          console.log("循环天数:",year+"-"+(parseInt(month)+1)+"-"+day)
-            let dataStr = year + "-" + (parseInt(month) + 1) + "-" + day
+//          console.log("循环天数:",year+"/"+(parseInt(month)+1)+"/"+day)
+            let dataStr = year + "/" + (parseInt(month) + 1) + "/" + day
             results.push(dataStr)
             startTime.setDate(startTime.getDate() + 1);
           }

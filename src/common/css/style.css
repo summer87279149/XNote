@@ -49,12 +49,12 @@ input, button {
 
 .demo {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -15rem;
-  margin-top: -26.5rem;
-  width: 30rem;
-  height: 53rem;
+  top: 0;
+  left: 0;
+  /*margin-left: -15rem;*/
+  /*margin-top: -26.5rem;*/
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 .success{
@@ -125,7 +125,7 @@ input, button {
 }
 
 .login__row {
-  height: 5rem;
+  height: 50px;
   padding-top: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -159,8 +159,11 @@ input, button {
   }
 }
 .login__icon {
-  margin-bottom: -0.4rem;
-  margin-right: 0.5rem;
+  /*margin-bottom: -0.4rem;*/
+  /*margin-right: 0.5rem;*/
+  float: left;
+  margin-left:10px;
+  margin-top:10px;
 }
 
 .login__icon.name path {
@@ -179,10 +182,11 @@ input, button {
 
 .login__input {
   display: inline-block;
-  width: 22rem;
+  width: 80%;
   height: 100%;
-  padding-left: 1.5rem;
-  font-size: 1.5rem;
+  margin-left:20px;
+  /*padding-left: 1.5rem;*/
+  font-size: 15px;
   background: transparent;
   color: #FDFCFD;
 }
@@ -190,14 +194,14 @@ input, button {
 .login__submit {
   position: absolute;
   width: 80%;
-  height: 4rem;
-  bottom:60px;
+  height: 50px;
+  bottom:80px;
   left:50%;
   transform: translate3d(-50%,0,0);
   color: rgba(255, 255, 255, 0.8);
   background: #FF3366;
-  font-size: 1.5rem;
-  border-radius: 3rem;
+  font-size: 15px;
+  border-radius: 25px;
   cursor: pointer;
   overflow: hidden;
   -webkit-transition: width 0.3s 0.15s, font-size 0.1s 0.15s;
@@ -255,11 +259,11 @@ input, button {
 
 .login__signup {
   position: absolute;
-  bottom:30px;
+  bottom:40px;
   left:50%;
   z-index: 0;
   transform: translate3D(-50%,0,0);
-  font-size: 1.2rem;
+  font-size: 15px;
   color: #fff;
 }
 

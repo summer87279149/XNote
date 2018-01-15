@@ -131,9 +131,11 @@
 //        console.log("当前index",index)
 //        console.log("this.train_kinds_arr[index].name",this.train_kinds_arr[index].name)
 //        console.log("this.color[this.random()",this.color[this.random()])
-//        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
+        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
 //        console.log("this.train_kinds_arr[index].train_days",this.train_kinds_arr[index].train_days)
 //        console.log("\n,\n")
+        console.log("lunarData是",lunarData)
+
         let bar = {
           title: {
             text: "本月" + this.train_kinds_arr[index].name + '记录图',
@@ -173,7 +175,10 @@
               normal: {
                 show: true,
                 formatter: function (params) {
+                  console.log("参数是:",params)
                   let d = new Date(params.value[0]);
+                  console.log("d是"+d)
+                  console.log("d.getDate()是",d.getDate())
                   return d.getDate();
                 },
                 textStyle: {
@@ -205,7 +210,7 @@
 //        console.log("data=",data)
 //        alert(y)
         if (data.length>0) {
-          console.log("走快捷方法")
+          console.log("data",data)
           return data
         } else {
 //           y = this.getThisYear()
@@ -226,7 +231,7 @@
             let month = startTime.getMonth().toString().length == 1 ? "0" + startTime.getMonth().toString() : startTime.getMonth();
             let day = startTime.getDate().toString().length == 1 ? "0" + startTime.getDate() : startTime.getDate();
 //          console.log("循环天数:",year+"-"+(parseInt(month)+1)+"-"+day)
-            let dataStr = year + "-" + (parseInt(month) + 1) + "-" + day
+            let dataStr = year + "/" + (parseInt(month) + 1) + "/" + day
             results.push(dataStr)
             startTime.setDate(startTime.getDate() + 1);
           }

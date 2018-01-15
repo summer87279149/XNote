@@ -71,7 +71,11 @@
         elem.append($ripple);
       },
       submitclick() {
+
         if(this.isLogin){
+          if(this.username.length==0||this.password.length==0){
+            return;
+          }
           this.procing = true;
           var that = this;
           login(this.username, this.password).then((res) => {
