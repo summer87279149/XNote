@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerlabel">
     <div class="wrapline"></div>
     <ul>
       <li :key="index" v-for="(item,index) in titles" :style="getRandomColor(index)" v-finger:long-tap="longtouch.bind(this,index)" ref="touchArea"   >{{item}}</li>
@@ -42,7 +42,7 @@
 </script>
 
 <style type="text/less" lang="less" scoped>
-  .container{
+  .containerlabel{
     .wrapline{
       margin: 0 auto;
       width: 95%;

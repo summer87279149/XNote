@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url2 = "https://gym.boysummer.top"
+//测试不能 url1 = "/api",上线时候改成 url1 = ""
 const url1 = "/api"
 export function regist(username,password) {
   const url = url1+'/users/register'

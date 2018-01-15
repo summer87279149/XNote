@@ -3,7 +3,7 @@
     <div class="container">
       <navigation class="nav" :title="navTitle" :showbackbtn="true" :showaddbtn="false"
                   :showSetting="false"></navigation>
-      <p class="hint">动作标签：</p>请自定义输入您训练时常用的动作名，例如(深蹲、仰卧起坐、跳绳等)</p>
+      <p class="hint">动作标签：</p>请自定义输入您训练时常用的动作名，例如(深蹲、仰卧起坐、跳绳等)
       <input type="text" class="inputtext" placeholder="请输入您的动作名作为标签" v-model="value">
       <button @click="addClicked" class="addbtn"></button>
       <labels :titles="titles" @remove="remove"></labels>
@@ -121,13 +121,13 @@
 
   .container {
     z-index: 102;
-    position: fixed;
-    width: 100%;
+    position: absolute;
+    /*width: 100%;*/
     height: 100%;
-    /*top:0;*/
-    /*right: 0;*/
-    /*left: 0;*/
-    /*bottom: 0;*/
+    top:20px;
+    right: 0;
+    left: 0;
+    bottom: 0;
     background-color: white;
     .hint {
       margin-top: 10px;
