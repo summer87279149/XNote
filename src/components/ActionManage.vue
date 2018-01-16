@@ -62,6 +62,7 @@
 </template>
 
 <script>
+  import 'jquery'
   import navigation from '../base/Navigation.vue'
   import MainBodyPart from './MainBodyPart.vue'
   import {gettrains, addtrains} from '../httprequest/api'
@@ -137,20 +138,28 @@
         } else {
           this.isCancing = true
         }
-//        console.log("当前删除的index", index)
+        console.log("当前删除的index", index)
         let dom1 = 'a' + index
 //        let dom2 = 'b'+e
 //        console.log("dom1=",dom1,"; dom2=",dom2)
 //        console.log("当前dom", this.$refs[dom1])
 //        console.log("this.$refs.dom2",this.$refs[dom2])
-        addClass(this.$refs[dom1][0], 'hide')
+        addClass(this.$refs[dom1][0], 'hide')//做动画用
 //        addClass(this.$refs.dom2,'hide')
         setTimeout(() => {
 //          console.log("删除前:", this.uploadActions)
-          this.removeByValue(this.uploadActions, e)
+//          this.removeByValue(this.uploadActions, e)
+          for (var i = 0; i < this.uploadActions.length; i++) {
+            var obj = this.uploadActions[i];
+            if (obj.train_name_id == e){
+              this.uploadActions.splice(i, 1);
+              break;
+            }
+          }
 //          console.log("删除后:", this.uploadActions)
           this.isCancing = false
         }, 500)
+
       }
       ,
       submit() {//提交当前添加的动作

@@ -131,10 +131,10 @@
 //        console.log("当前index",index)
 //        console.log("this.train_kinds_arr[index].name",this.train_kinds_arr[index].name)
 //        console.log("this.color[this.random()",this.color[this.random()])
-        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
+//        console.log("this.getCurrentYearMonth()",this.getCurrentYearMonth())
 //        console.log("this.train_kinds_arr[index].train_days",this.train_kinds_arr[index].train_days)
 //        console.log("\n,\n")
-        console.log("lunarData是",lunarData)
+//        console.log("lunarData是",lunarData)
 
         let bar = {
           title: {
@@ -175,10 +175,10 @@
               normal: {
                 show: true,
                 formatter: function (params) {
-                  console.log("参数是:",params)
+//                  console.log("参数是:",params)
                   let d = new Date(params.value[0]);
-                  console.log("d是"+d)
-                  console.log("d.getDate()是",d.getDate())
+//                  console.log("d是"+d)
+//                  console.log("d.getDate()是",d.getDate())
                   return d.getDate();
                 },
                 textStyle: {
@@ -210,7 +210,7 @@
 //        console.log("data=",data)
 //        alert(y)
         if (data.length>0) {
-          console.log("data",data)
+//          console.log("data",data)
           return data
         } else {
 //           y = this.getThisYear()

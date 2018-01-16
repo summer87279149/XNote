@@ -1,6 +1,6 @@
 import axios from 'axios'
 //测试不能 url1 = "/api",上线时候改成 url1 = ""
-const url1 = "/api"
+const url1 = ""
 export function regist(username,password) {
   const url = url1+'/users/register'
   return  new Promise((resolve,reject) =>{
